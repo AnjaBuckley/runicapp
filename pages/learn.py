@@ -47,9 +47,9 @@ alphabet_data = runic_data.get_alphabet(selected_alphabet)
 
 # Add this before your grid display code
 st.write("Current working directory:", os.getcwd())
-st.write("Files in ./static/images/Elder Futhark:")
+st.write("Files in static/images/Elder Futhark:")
 try:
-    files = os.listdir("./static/images/Elder Futhark")
+    files = os.listdir("static/images/Elder Futhark")
     st.write(files)
 except Exception as e:
     st.write(f"Error listing directory: {str(e)}")

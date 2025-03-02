@@ -46,8 +46,8 @@ class RunicData:
         """Get a specific alphabet by name"""
         alphabet_data = self.alphabets.get(name, {})
         for key, rune in alphabet_data.items():
-            # Use the exact path as found by your find command
-            image_path = f"./static/images/{name}/{rune['name']}.png"
+            # Use the exact case that matches your directory structure
+            image_path = f"static/images/{name}/{rune['name']}.png"
             rune["image_path"] = image_path
         return alphabet_data
 

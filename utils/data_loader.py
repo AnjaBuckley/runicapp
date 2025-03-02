@@ -28,6 +28,11 @@ class RunicData:
                     "meaning": "aurochs (wild ox)",
                     "latin_equivalent": "u",
                 },
+                "z": {
+                    "name": "algiz",
+                    "meaning": "protection, elk",
+                    "latin_equivalent": "z",
+                },
                 # Add more runes...
             }
         elif alphabet_name == "Younger Futhark":
@@ -41,8 +46,11 @@ class RunicData:
         """Get a specific alphabet by name"""
         alphabet_data = self.alphabets.get(name, {})
         for key, rune in alphabet_data.items():
-            # Use os.path.join for cross-platform compatibility
-            image_path = os.path.join("data", "images", name, f"{rune['name']}.png")
+            # Use absolute path based on the current file location
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            image_path = os.path.join(
+                base_dir, "data", "images", name, f"{rune['name']}.png"
+            )
             rune["image_path"] = image_path
         return alphabet_data
 

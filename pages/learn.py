@@ -60,16 +60,27 @@ col_index = 0
 
 for latin_char, rune_data in alphabet_data.items():
     with cols[col_index]:
-        # Print the full path for debugging
-        st.write(f"Image path: {rune_data['image_path']}")
+        # Try to find the file regardless of case
+        image_path = rune_data["image_path"]
+        correct_case_path = None
 
-        # Check if file exists
-        file_exists = os.path.exists(rune_data["image_path"])
-        st.write(f"File exists: {file_exists}")
+        # Check if the directory exists with proper case
+        dir_path = os.path.dirname(image_path)
+        if not os.path.exists(dir_path):
+            # Try to find the directory with the correct case
+            parent_dir = os.path.dirname(dir_path)
+            if os.path.exists(parent_dir):
+                for item in os.listdir(parent_dir):
+                    if item.lower() == os.path.basename(dir_path).lower():
+                        correct_case_path = os.path.join(
+                            parent_dir, item, os.path.basename(image_path)
+                        )
+                        break
+        else:
+            correct_case_path = image_path
 
-        # Try simple image loading first
-        if file_exists:
-            st.image(rune_data["image_path"], width=100)
+        if correct_case_path and os.path.exists(correct_case_path):
+            st.image(correct_case_path, width=100)
         else:
             st.write(f"Image not found: {rune_data['name']}")
 

@@ -20,13 +20,13 @@ class RunicData:
             return {
                 "f": {
                     "name": "fehu",
-                    "image_path": f"data/elder_futhark/fehu.png",
+                    "image_path": os.path.join("data", "images", "fehu.png"),
                     "meaning": "cattle, wealth",
                     "latin_equivalent": "f",
                 },
                 "u": {
                     "name": "uruz",
-                    "image_path": f"data/elder_futhark/uruz.png",
+                    "image_path": os.path.join("data", "images", "uruz.png"),
                     "meaning": "aurochs (wild ox)",
                     "latin_equivalent": "u",
                 },
@@ -41,7 +41,12 @@ class RunicData:
 
     def get_alphabet(self, name):
         """Get a specific alphabet by name"""
-        return self.alphabets.get(name, {})
+        alphabet_data = self.alphabets.get(name, {})
+        for rune in alphabet_data.values():
+            # Use os.path.join for cross-platform compatibility
+            image_path = os.path.join("data", "images", name, f"{rune['name']}.png")
+            rune["image_path"] = image_path
+        return alphabet_data
 
     def get_all_alphabet_names(self):
         """Get list of all alphabet names"""

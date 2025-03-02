@@ -46,11 +46,8 @@ class RunicData:
         """Get a specific alphabet by name"""
         alphabet_data = self.alphabets.get(name, {})
         for key, rune in alphabet_data.items():
-            # Use absolute path based on the current file location
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            image_path = os.path.join(
-                base_dir, "data", "images", name, f"{rune['name']}.png"
-            )
+            # Use the static path inside runic_learning_app
+            image_path = f"static/images/{name}/{rune['name']}.png"
             rune["image_path"] = image_path
         return alphabet_data
 

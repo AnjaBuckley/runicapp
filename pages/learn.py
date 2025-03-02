@@ -1,6 +1,9 @@
 import streamlit as st
 from utils.data_loader import RunicData
 import os
+import base64
+from PIL import Image
+import io
 
 st.set_page_config(page_title="Learn Runic Alphabets", page_icon="📚", layout="wide")
 
@@ -39,10 +42,19 @@ col_index = 0
 
 for latin_char, rune_data in alphabet_data.items():
     with cols[col_index]:
-        if os.path.exists(rune_data["image_path"]):
+        # Print the full path for debugging
+        st.write(f"Image path: {rune_data['image_path']}")
+        
+        # Check if file exists
+        file_exists = os.path.exists(rune_data["image_path"])
+        st.write(f"File exists: {file_exists}")
+        
+        # Try simple image loading first
+        if file_exists:
             st.image(rune_data["image_path"], width=100)
         else:
             st.write(f"Image not found: {rune_data['name']}")
+        
         st.write(f"**Name:** {rune_data['name']}")
         st.write(f"**Latin:** {rune_data['latin_equivalent']}")
         st.write(f"**Meaning:** {rune_data['meaning']}")

@@ -46,8 +46,9 @@ class RunicData:
         """Get a specific alphabet by name"""
         alphabet_data = self.alphabets.get(name, {})
         for key, rune in alphabet_data.items():
-            # Use the static path inside runic_learning_app
-            image_path = f"static/images/{name}/{rune['name']}.png"
+            # Convert name to lowercase and remove spaces for the path
+            folder_name = name.lower().replace(" ", "_")
+            image_path = f"static/images/{folder_name}/{rune['name']}.png"
             rune["image_path"] = image_path
         return alphabet_data
 
